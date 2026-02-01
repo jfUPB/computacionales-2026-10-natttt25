@@ -5,27 +5,58 @@
 Actividad 1:
 
 ¿Qué crees que haga este programa? 
-Se suman 2 valores registrados en A y D y guarda en memoria 16
+
+-Se suman 2 valores registrados en A y D y guarda en memoria 16
 
 Reporta tus observaciones para cada experimento en tu bitácora de aprendizaje.
+
 ¿Qué diferencia hay entre los datos almacenados en la memoria ROM y en la RAM?
-el ROM es memoria permanente que se guarda en el equipo asi no esté en uso o esté apagado, mientras que la RAM es memoria que guarda información temporal.
+
+-el ROM es memoria permanente que se guarda en el equipo asi no esté en uso o esté apagado, mientras que la RAM es memoria que guarda 
+información temporal
+
+Experimento:
+
+@10
+D=A
+@5
+D=D+A
+@20
+M=D
+@END
+(END)
+0;JMP
+<img width="1672" height="716" alt="image" src="https://github.com/user-attachments/assets/67242ff2-2f00-466f-a1b5-e20bce867a44" />
+
+<img width="1403" height="474" alt="image" src="https://github.com/user-attachments/assets/414792b0-a80f-43ad-8683-dace333e6867" />
 
 Actividad 2:
 
 Identifica una instrucción que use la ALU y explica qué hace.
+
+-Por ejemplo una instrucción de suma, usa la ALU para sumar dos valores y guardarlos en la CPU
+
 ¿Para qué sirve el registro PC?
-Guarda la direccion de una instrucción
+
+-Guarda la direccion de una instrucción
 
 ¿Cuál es la diferencia entre @i y @READKEYBOARD?
-@i (posicion 16) es una variable en memoria normal y @READKEYBOARD es una dirección de entrada asociada al teclado
+
+-@i (posicion 16) es una variable en memoria normal y @READKEYBOARD es una dirección de entrada asociada al teclado
 
 Describe qué se necesita para leer el teclado y mostrar información en la pantalla.
 
+-Para leer el teclado el programa busca la dirección de memoria @KBD para identificar si hay una tecla presionada, luego, para 
+mostrar la información en pantalla se escriben datos en la memoria que inicia en @SCREEN 
+
 Identifica un bucle en el programa y explica su funcionamiento.
+
+-El programa utiliza un bucle infinito que revisa continuamente el estado del teclado, el bucle permite que el sistema responda en tiempo 
+real, escribiendo o borrando la información en pantalla, según la condición que tenga
 
 Identifica una condición en el programa y explica su funcionamiento
 
+-Ahora, una condición evalúa si se cumple o no una situación dentro del programa, según la condición o situación dada el programa decide cual es la siguiente acción a ejecutar
 
 
 Actividad 3:
@@ -37,8 +68,33 @@ en la dirección 7.
 Escribe tu mismo el programa.
 Simula paso a paso. Recuerda la metodología: predice, ejecuta, observa y reflexiona.
 
+@5
+D=M
+@10
+D=D-A
+@MENOR
+D;JLT
+
+@7
+M=0
+@FINAL
+0;JMP
+
+(MENOR)
+@7
+M=1
+
+@FINAL
+(FINAL)
+0;JMP
+
+<img width="1512" height="577" alt="image" src="https://github.com/user-attachments/assets/eb462680-ee6b-448a-9ebc-2a5e77aac8e2" />
+
 
 Actividad 4:
+
+Crea un programa que use un ciclo para sumar los números del 1 al 5 y guarde el resultado en la dirección de memoria 12.
+
 @i 
 M=1
 
@@ -70,6 +126,9 @@ M=D
 (END) 
 0;JMP
 
+<img width="1538" height="735" alt="image" src="https://github.com/user-attachments/assets/0c692382-b2e8-4f87-a4e6-bf404178e873" />
+
+
 Actividad 5:
 
 
@@ -93,3 +152,4 @@ Actividad 5:
 
 
 ## Bitácora de reflexión
+
