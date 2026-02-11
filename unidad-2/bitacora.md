@@ -66,10 +66,36 @@ M=D
 (FIN)
 0;JMP
 
+Actividad 4
+Actividad 5
+Traducción de:
+int a = 10;
+int* p;
+p = &a;
+*p = 20;
+
+<img width="1320" height="606" alt="image" src="https://github.com/user-attachments/assets/13144a83-a9a4-47d7-8bbd-948dad9c2024" />
+Traducción de: 
+int a = 10;
+int b = 5;
+int *p;
+p = &a;
+b = *p;
+
+<img width="1484" height="711" alt="image" src="https://github.com/user-attachments/assets/27380512-8bd8-4289-90ca-da64180a8f8a" />
+Actividad 6
+-Implementa el programa anterior en lenguaje ensamblador aplicando el concepto de punteros.
+-Considera que los datos del arreglo están almacenados desde la dirección 16. Inicializa el arreglo en lenguaje ensamblador.
+-Simula paso a paso el programa en ensamblador. Recuerda la metodología: predice, ejecuta, observa y reflexiona.
+-Construye tu programa PASO A PASO mediante pruebas. Indica qué característica vas a implementar con cada prueba y cómo la probaste.
+-Muestra el programa final y cómo lo probaste.
+
+
 
 ## Bitácora de aplicación 
 
 
 
 ## Bitácora de reflexión
+
 
