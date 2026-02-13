@@ -89,7 +89,9 @@ Actividad 6
 -Simula paso a paso el programa en ensamblador. Recuerda la metodología: predice, ejecuta, observa y reflexiona.
 -Construye tu programa PASO A PASO mediante pruebas. Indica qué característica vas a implementar con cada prueba y cómo la probaste.
 -Muestra el programa final y cómo lo probaste.
+Actividad 7
 
+Actividad 8
 
 
 ## Bitácora de aplicación 
@@ -97,5 +99,6 @@ Actividad 6
 
 
 ## Bitácora de reflexión
+
 
 
