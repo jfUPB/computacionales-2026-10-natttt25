@@ -121,6 +121,7 @@ int main()
 En este problema intercambiamos valores a través de punteros, tenemos las variables a y b
 
 En lenguaje ensamblador:
+``` asm
 @10
 D=A
 @16
@@ -183,20 +184,30 @@ M=D
 @15
 A=M
 0;JMP
+```
 
 <img width="615" height="244" alt="image" src="https://github.com/user-attachments/assets/9cf812e4-07e5-4754-870e-1f16ae440569" />
+
 Iniciamos con las variables a y b
+
 <img width="357" height="251" alt="image" src="https://github.com/user-attachments/assets/f5917135-b8d7-441a-952c-101f49b0d785" />
+
 Guardamos las direcciones de los punteros en 16 y 17 
+
 <img width="849" height="810" alt="image" src="https://github.com/user-attachments/assets/6eee380d-6655-4224-84d9-3d1760d5d192" />
+
 Vamos a la funcion de cambio, guardamos los valores de a y b temporalmente en otra direccion para luego hacer el cambio y poner el valor de b en a y el de a en b.
+
 <img width="236" height="159" alt="image" src="https://github.com/user-attachments/assets/d37ab7d9-9c59-46d6-9b69-4cc3242883e9" />
+
 Podemos observar como en la direccion 16 y 17 guardamos los valores de a y b, es decir, los valores de 10 y 20
+
 <img width="1065" height="447" alt="image" src="https://github.com/user-attachments/assets/f195aa71-783d-4ec9-9afa-8be8746f8d53" />
 
 <img width="1183" height="680" alt="image" src="https://github.com/user-attachments/assets/9e0986b2-936b-4d2a-8f43-90e668fe0640" />
 
 <img width="679" height="417" alt="image" src="https://github.com/user-attachments/assets/1c2637ea-bc6e-4082-b07a-ec5022ed0508" />
+
 Finalizamos guardando los valores de a y b temporalmente en otras direcciones y luego se hace el cambio, a queda como 20 y b como 10
 
 Segundo programa:
@@ -235,6 +246,7 @@ Aqui analizamos un arreglo usando los punteros
 
 
 ## Bitácora de reflexión
+
 
 
 
