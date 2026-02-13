@@ -94,9 +94,136 @@ Actividad 6
 Actividad 7
 
 Actividad 8
+
 Implementa ambos programas en lenguaje ensamblador.
 Capturas de pantalla donde muestres una parte de la simulación y expliques qué se ve en esas capturas.
 Captura de pantalla del simulador mostrando el resultado final correcto.
+
+Primer programa:
+#include <iostream>
+
+void swap(int* pa, int* pb){
+    int tmp = *pa;
+    *pa = *pb;
+    *pb = tmp;
+}
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+    std::cout<<"a: " << a <<" b: "<< b<< std::endl;
+    swap(&a,&b);
+    std::cout<<"a: " << a <<" b: "<< b<< std::endl;
+    return 0;
+}
+
+En este problema intercambiamos valores a través de punteros, tenemos las variables a y b
+
+En lenguaje ensamblador:
+@10
+D=A
+@16
+M=D    // RAM[16] = VARIABLE a = 10
+
+@20
+D=A
+@17
+M=D    // RAM[17] = VARIABLE b = 20
+
+@16
+D=A
+@R0
+M=D    
+
+@17
+D=A
+@R1
+M=D
+
+
+
+@retornoDespuesCambio
+D=A
+@R15
+M=D
+
+@swap
+0;JMP
+
+
+(retornoDespuesCambio)
+@END
+0;JMP
+
+(END)
+0;JMP
+
+(swap)
+    
+@R0
+A=M
+D=M
+@13
+M=D
+
+@R1
+A=M
+D=M
+@R0
+A=M
+M=D
+
+@13
+D=M
+@R1
+A=M
+M=D
+
+@15
+A=M
+0;JMP
+
+<img width="615" height="244" alt="image" src="https://github.com/user-attachments/assets/9cf812e4-07e5-4754-870e-1f16ae440569" />
+Iniciamos con las variables a y b
+<img width="357" height="251" alt="image" src="https://github.com/user-attachments/assets/f5917135-b8d7-441a-952c-101f49b0d785" />
+Guardamos las direcciones de los punteros en 16 y 17 
+<img width="849" height="810" alt="image" src="https://github.com/user-attachments/assets/6eee380d-6655-4224-84d9-3d1760d5d192" />
+Vamos a la funcion de cambio, guardamos los valores de a y b temporalmente en otra direccion para luego hacer el cambio y poner el valor de b en a y el de a en b.
+<img width="236" height="159" alt="image" src="https://github.com/user-attachments/assets/d37ab7d9-9c59-46d6-9b69-4cc3242883e9" />
+
+<img width="1065" height="447" alt="image" src="https://github.com/user-attachments/assets/f195aa71-783d-4ec9-9afa-8be8746f8d53" />
+<img width="1183" height="680" alt="image" src="https://github.com/user-attachments/assets/9e0986b2-936b-4d2a-8f43-90e668fe0640" />
+<img width="679" height="417" alt="image" src="https://github.com/user-attachments/assets/1c2637ea-bc6e-4082-b07a-ec5022ed0508" />
+
+
+Segundo programa:
+#include <iostream>
+
+int calSum(int* parr,int arrSize){
+    int sum = 0;
+    for(int i= 0; i < arrSize;i++){
+        sum = sum + *(parr+i);
+    }
+    return sum;
+}
+
+int main()
+{
+    int arr[] = {10,15,2,3,50};
+    int sum = calSum(arr,5);
+    std::cout<<"Sum: " << sum << std::endl;
+    return 0;
+}
+Aqui analizamos un arreglo usando los punteros
+
+
+
+
+
+
+
+
 
 
 
@@ -105,6 +232,7 @@ Captura de pantalla del simulador mostrando el resultado final correcto.
 
 
 ## Bitácora de reflexión
+
 
 
 
