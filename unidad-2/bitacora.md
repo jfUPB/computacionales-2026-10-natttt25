@@ -67,6 +67,7 @@ M=D
 0;JMP
 
 Actividad 4
+
 Actividad 5
 Traducción de:
 int a = 10;
@@ -84,6 +85,7 @@ b = *p;
 
 <img width="1484" height="711" alt="image" src="https://github.com/user-attachments/assets/27380512-8bd8-4289-90ca-da64180a8f8a" />
 Actividad 6
+
 -Implementa el programa anterior en lenguaje ensamblador aplicando el concepto de punteros.
 -Considera que los datos del arreglo están almacenados desde la dirección 16. Inicializa el arreglo en lenguaje ensamblador.
 -Simula paso a paso el programa en ensamblador. Recuerda la metodología: predice, ejecuta, observa y reflexiona.
@@ -92,6 +94,10 @@ Actividad 6
 Actividad 7
 
 Actividad 8
+Implementa ambos programas en lenguaje ensamblador.
+Capturas de pantalla donde muestres una parte de la simulación y expliques qué se ve en esas capturas.
+Captura de pantalla del simulador mostrando el resultado final correcto.
+
 
 
 ## Bitácora de aplicación 
@@ -99,6 +105,7 @@ Actividad 8
 
 
 ## Bitácora de reflexión
+
 
 
 
