@@ -52,8 +52,14 @@ int main()
 
 }
 ```
-``` c++
+
+
+
+## Bitácora de aplicación 
+
 Apply
+``` c++
+
 #include <iostream>
 #include <string>
 
@@ -152,12 +158,8 @@ int main() {
 ```
 Es mejor usar el stack porque la memoria se administra automáticamente. No es necesario usar new ni delete, por lo que se evita el riesgo de fugas de memoria. Además, cada objeto tiene su propia copia de las estadísticas, lo que evita que varios objetos compartan la misma dirección de memoria. Esto hace que el programa sea más seguro y estable.
 
-
-## Bitácora de aplicación 
-
-
-
 ## Bitácora de reflexión
+
 
 
 
