@@ -97,6 +97,9 @@ int main() {
 }
 ```
 Error crítico 1. Cuando se intenta hacer la copia del objeto heroe. Solo se esta copiando la dirección de memoria del puntero, entonces ambos objetos apuntan al mismo espacio de memoria de estadisticas. Es un problema crítico porque heroe y copiaHeroe estan compartiendo estadisticas, no tienen estadisticas propias, cualquier cambio que se haga en las estadisticas de un objeto tambien afecta al otro, puede causar comportamientos raros o inesperados en el programa. 
+<img width="948" height="219" alt="image" src="https://github.com/user-attachments/assets/5c64a501-4ac1-4027-9f6c-550a34e0ae8c" />
+
+ahi buscamos las estadisticas y vemos como ambos tienen la misma direccion de memoria, tanto el objeto principal como la copia
 
 Error crítico 2. La fuga de memoria es provocada por el arreglo "new int[3]" ya que la memoria que se crea con el "new" no se devuelve al sistema, entonces queda ocupada aunque el objeto ya no exista, esto causa la fuga de memoria y el consumo creciente de RAM. Habria que dejar de usar la memoria en el heap y usar un arreglo que se guarde automáticamente en el stack o memoria automática.
 
@@ -112,6 +115,7 @@ Es mejor usar el stack porque la memoria se administra automáticamente. No es n
 
 
 ## Bitácora de reflexión
+
 
 
 
