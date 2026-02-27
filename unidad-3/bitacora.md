@@ -1,3 +1,5 @@
+Nota del profesor: no hay evidencia de la fase de la aplicación.
+
 # Unidad 3
 
 ## Bitácora de proceso de aprendizaje
@@ -110,5 +112,6 @@ Es mejor usar el stack porque la memoria se administra automáticamente. No es n
 
 
 ## Bitácora de reflexión
+
 
 
