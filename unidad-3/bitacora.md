@@ -104,6 +104,9 @@ int main() {
 ```
 Error crítico 1. Cuando se intenta hacer la copia del objeto heroe. Solo se esta copiando la dirección de memoria del puntero, entonces ambos objetos apuntan al mismo espacio de memoria de estadisticas. Es un problema crítico porque heroe y copiaHeroe estan compartiendo estadisticas, no tienen estadisticas propias, cualquier cambio que se haga en las estadisticas de un objeto tambien afecta al otro, puede causar comportamientos raros o inesperados en el programa. 
 <img width="948" height="219" alt="image" src="https://github.com/user-attachments/assets/5c64a501-4ac1-4027-9f6c-550a34e0ae8c" />
+<img width="944" height="227" alt="image" src="https://github.com/user-attachments/assets/c6e680a4-0bd3-4fb1-86e0-3feb9dce18b7" />
+
+
 
 ahi buscamos las estadisticas y vemos como ambos tienen la misma direccion de memoria, tanto el objeto principal como la copia
 
@@ -159,6 +162,7 @@ int main() {
 Es mejor usar el stack porque la memoria se administra automáticamente. No es necesario usar new ni delete, por lo que se evita el riesgo de fugas de memoria. Además, cada objeto tiene su propia copia de las estadísticas, lo que evita que varios objetos compartan la misma dirección de memoria. Esto hace que el programa sea más seguro y estable.
 
 ## Bitácora de reflexión
+
 
 
 
