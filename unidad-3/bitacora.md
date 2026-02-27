@@ -105,7 +105,50 @@ Error crítico 2. La fuga de memoria es provocada por el arreglo "new int[3]" ya
 
 Cambiar: 
 ```c++
-int estadisticas[3];   // ← arreglo normal (usa stack)
+int estadisticas[3];   //  arreglo normal (usa stack)
+```
+corregido:
+```c++
+#include <iostream>
+#include <string>
+
+class Personaje {
+public:
+    std::string nombre;
+    int estadisticas[3];   //  arreglo normal (usa stack)
+
+    Personaje(std::string n, int vida, int ataque, int defensa) {
+        nombre = n;
+        estadisticas[0] = vida;
+        estadisticas[1] = ataque;
+        estadisticas[2] = defensa;
+        std::cout << "Constructor: nace " << nombre << std::endl;
+    }
+
+    void imprimir() {
+        std::cout << "Personaje " << nombre
+            << " [Vida: " << estadisticas[0]
+            << ", ATK: " << estadisticas[1]
+            << ", DEF: " << estadisticas[2]
+            << "]" << std::endl;
+    }
+};
+
+void simularEncuentro() {
+    std::cout << "\n--- Iniciando encuentro ---" << std::endl;
+    Personaje heroe("Aragorn", 100, 20, 15);
+
+    Personaje copiaHeroe = heroe;
+    copiaHeroe.nombre = "Copia de Aragorn";
+
+    std::cout << "Saliendo del encuentro..." << std::endl;
+}
+
+int main() {
+    simularEncuentro();
+    std::cout << "\nSimulación terminada." << std::endl;
+    return 0;
+}
 ```
 Es mejor usar el stack porque la memoria se administra automáticamente. No es necesario usar new ni delete, por lo que se evita el riesgo de fugas de memoria. Además, cada objeto tiene su propia copia de las estadísticas, lo que evita que varios objetos compartan la misma dirección de memoria. Esto hace que el programa sea más seguro y estable.
 
@@ -115,6 +158,7 @@ Es mejor usar el stack porque la memoria se administra automáticamente. No es n
 
 
 ## Bitácora de reflexión
+
 
 
 
