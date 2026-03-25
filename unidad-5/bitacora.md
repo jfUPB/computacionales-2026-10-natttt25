@@ -406,6 +406,14 @@ ofApp::~ofApp() {
 }
 
 ```
+Evidencia 1 
+<img width="947" height="682" alt="image" src="https://github.com/user-attachments/assets/cbd29441-28e5-464d-989b-3d5d5f12dde9" />
+Puse el breakpoint en la linea 14: particles[i]->update(dt);
+Ahi en ese punto el vector de las partículas ya tiene objetos guardados en la memoria, cuando ejecutamos y tocamos la pantalla se pausa en el breakpoint y podemos ver en el depurador el vector de partículas con un objeto en la posición 0, el objeto es de RisingParticle, que hereda de Particle, la partícula. También podemos ver la jerarquía del objeto donde RisingParticle hereda de Particle, por eso podemos observar los datos de la clase base y la subclase. Además, podemos ver todas las variables que contiene como position, velocity, color, lifetime, age y exploded. Aqui podemos evidenciar la herencia, porque el vector guarda punteros de tipo Particle en el objeto que es RisingParticle, que es clase hija de la clase Particle.
+
+
+
+
 
 
 
