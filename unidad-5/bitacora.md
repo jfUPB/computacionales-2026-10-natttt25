@@ -332,6 +332,103 @@ private:
 };
 
 ´´´
+ofApp.cpp:
+´´´c++
+#include "ofApp.h"
+
+// --------------------------------------------------------------
+void ofApp::setup() {
+	ofSetFrameRate(60);
+	ofBackground(0);
+}
+
+// --------------------------------------------------------------
+void ofApp::update() {
+	float dt = ofGetLastFrameTime();
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->update(dt);
+	}
+
+	for (int i = particles.size() - 1; i >= 0; i--) {
+		if (particles[i]->shouldExplode()) {
+			int explosionType = (int)ofRandom(4);
+			int numParticles = (int)ofRandom(20, 30);
+			for (int j = 0; j < numParticles; j++) {
+				if (explosionType == 0) {
+					particles.push_back(new CircularExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 1) {
+					particles.push_back(new RandomExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 2) {
+					particles.push_back(new StarExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else {
+					particles.push_back(new SpiralExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+
+				}
+			}
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		} else if (particles[i]->isDead()) {
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::draw() {
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->draw();
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::createRisingParticle() {
+	float minX = ofGetWidth() * 0.35f;
+	float maxX = ofGetWidth() * 0.65f;
+	float spawnX = ofRandom(minX, maxX);
+	glm::vec2 pos(spawnX, ofGetHeight());
+	glm::vec2 target(ofGetWidth() / 2.0f + ofRandom(-300, 300),
+		ofGetHeight() * 0.10f + ofRandom(-30, 30));
+	glm::vec2 direction = glm::normalize(target - pos);
+	glm::vec2 vel = direction * ofRandom(250, 350);
+	ofColor col;
+	col.setHsb(ofRandom(255), 220, 255);
+	float lifetime = ofRandom(1.5f, 3.5f);
+	particles.push_back(new RisingParticle(pos, vel, col, lifetime));
+}
+
+// --------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {
+	createRisingParticle();
+}
+
+// --------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+	if (key == ' ') {
+		for (int i = 0; i < 1000; i++) {
+			createRisingParticle();
+		}
+	}
+	if (key == 's') {
+		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
+	}
+}
+
+// --------------------------------------------------------------
+ofApp::~ofApp() {
+	for (int i = 0; i < particles.size(); i++) {
+		delete particles[i];
+	}
+	particles.clear();
+}
+
+´´´
 
 
 ## Bitácora de reflexión
