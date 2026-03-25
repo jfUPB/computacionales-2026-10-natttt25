@@ -10,9 +10,7 @@ ofApp.h:
 #include "ofMain.h"
 #include <vector>
 
-// -------------------------------------------------
-// Clase base abstracta: Particle
-// -------------------------------------------------
+
 class Particle {
 public:
 	virtual ~Particle() { }
@@ -24,9 +22,7 @@ public:
 	virtual ofColor getColor() const { return ofColor(255); }
 };
 
-// -------------------------------------------------
-// RisingParticle: Partícula que nace en la parte inferior y sube
-// -------------------------------------------------
+
 class RisingParticle : public Particle {
 protected:
 	glm::vec2 position;
@@ -66,9 +62,7 @@ public:
 	glm::vec2 getPosition() const override { return position; }
 	ofColor getColor() const override { return color; }
 };
-// -------------------------------------------------
-// FastParticle
-// -------------------------------------------------
+
 class FastParticle : public Particle {
 protected:
 	glm::vec2 position;
@@ -106,9 +100,7 @@ public:
 	glm::vec2 getPosition() const override { return position; }
 	ofColor getColor() const override { return color; }
 };
-// -------------------------------------------------
-// BounceParticle
-// -------------------------------------------------
+
 class BounceParticle : public Particle {
 protected:
 	glm::vec2 position;
@@ -150,9 +142,7 @@ public:
 	ofColor getColor() const override { return color; }
 };
 
-// -------------------------------------------------
-// Clase base para explosiones: ExplosionParticle
-// -------------------------------------------------
+
 class ExplosionParticle : public Particle {
 protected:
 	glm::vec2 position;
@@ -181,9 +171,7 @@ public:
 
 	bool isDead() const override { return age >= lifetime; }
 };
-// -------------------------------------------------
-// ZigZagParticle: sube en zigzag
-// -------------------------------------------------
+
 class ZigZagParticle : public Particle {
 protected:
     glm::vec2 position;
@@ -221,9 +209,7 @@ public:
     ofColor getColor() const override { return color; }
 };
 
-// -------------------------------------------------
-// CircularExplosion: Explosión en patrón circular
-// -------------------------------------------------
+
 class CircularExplosion : public ExplosionParticle {
 public:
 	CircularExplosion(const glm::vec2 & pos, const ofColor & col)
@@ -239,9 +225,7 @@ public:
 	}
 };
 
-// -------------------------------------------------
-// RandomExplosion: Explosión con direcciones aleatorias
-// -------------------------------------------------
+
 class RandomExplosion : public ExplosionParticle {
 public:
 	RandomExplosion(const glm::vec2 & pos, const ofColor & col)
@@ -255,9 +239,7 @@ public:
 	}
 };
 
-// -------------------------------------------------
-// StarExplosion: Explosión en forma de estrella
-// -------------------------------------------------
+
 class StarExplosion : public ExplosionParticle {
 public:
 	StarExplosion(const glm::vec2 & pos, const ofColor & col)
@@ -286,9 +268,7 @@ public:
 		ofPopMatrix();
 	}
 };
-// -------------------------------------------------
-// SpiralExplosion
-// -------------------------------------------------
+
 class SpiralExplosion : public ExplosionParticle {
 public:
 	SpiralExplosion(const glm::vec2 & pos, const ofColor & col)
@@ -313,9 +293,6 @@ public:
 	}
 };
 
-// -------------------------------------------------
-// ofApp: Manejo de la escena y eventos
-// -------------------------------------------------
 class ofApp : public ofBaseApp {
 public:
 	void setup();
@@ -331,18 +308,20 @@ private:
 	void createRisingParticle();
 };
 
-´´´
+```
+
 ofApp.cpp:
-´´´c++
+
+``` c++
 #include "ofApp.h"
 
-// --------------------------------------------------------------
+
 void ofApp::setup() {
 	ofSetFrameRate(60);
 	ofBackground(0);
 }
 
-// --------------------------------------------------------------
+
 void ofApp::update() {
 	float dt = ofGetLastFrameTime();
 
@@ -380,14 +359,12 @@ void ofApp::update() {
 	}
 }
 
-// --------------------------------------------------------------
 void ofApp::draw() {
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i]->draw();
 	}
 }
 
-// --------------------------------------------------------------
 void ofApp::createRisingParticle() {
 	float minX = ofGetWidth() * 0.35f;
 	float maxX = ofGetWidth() * 0.65f;
@@ -403,12 +380,12 @@ void ofApp::createRisingParticle() {
 	particles.push_back(new RisingParticle(pos, vel, col, lifetime));
 }
 
-// --------------------------------------------------------------
+
 void ofApp::mousePressed(int x, int y, int button) {
 	createRisingParticle();
 }
 
-// --------------------------------------------------------------
+
 void ofApp::keyPressed(int key) {
 	if (key == ' ') {
 		for (int i = 0; i < 1000; i++) {
@@ -420,7 +397,7 @@ void ofApp::keyPressed(int key) {
 	}
 }
 
-// --------------------------------------------------------------
+
 ofApp::~ofApp() {
 	for (int i = 0; i < particles.size(); i++) {
 		delete particles[i];
@@ -428,7 +405,8 @@ ofApp::~ofApp() {
 	particles.clear();
 }
 
-´´´
+```
+
 
 
 ## Bitácora de reflexión
