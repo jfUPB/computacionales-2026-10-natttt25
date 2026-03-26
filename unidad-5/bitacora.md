@@ -431,6 +431,32 @@ Evidencia 4
 
 Para el encapsulamiento, los campos que son privados no se ven en el depurador ni se heredan, los públicos/protegidos si. Al expandir el objeto This podemos ver lo atributos públicos y protegidos, son accesibles desde la subclase, los atributos privados de la clase base no aparecen como accesibles desde la subclase. Basicamente se puede inferir en el depurador que atributos son públicos pero no lo dice explicitamente, ya eso lo podemos ver en el código como tal.
 
+Evidencia 5
+
+<img width="943" height="499" alt="Captura de pantalla 2026-03-25 232906" src="https://github.com/user-attachments/assets/9f738b59-c5d4-499a-91f2-ae3744051c11" />
+
+<img width="863" height="306" alt="image" src="https://github.com/user-attachments/assets/e985c09c-ad83-4c2c-b986-f00a53551d76" />
+
+<img width="1068" height="655" alt="image" src="https://github.com/user-attachments/assets/e6bc2ab6-60c9-4ea6-8a5a-092369ae7dd5" />
+
+<img width="1466" height="407" alt="image" src="https://github.com/user-attachments/assets/35189b9c-d162-46b2-9449-cb8487d17cdc" />
+
+En la captura 1 vemos el estad inicial antes de crear una partícula, podemos observar que su tamaño es 0, no existen objetos en la memoria, pero luego en la captura 2 se ve que el tamaño del vector cambia a 1, el objeto ya ha sido creado (la partícula) y almacenado correctamente. En la 3ra captura vemos el comportamiento de la partícula, vemos los atributos mencionados anteriormente, cambiando con el tiempo, ahi evidenciamos que la partícula está activa dentro del sistema. Por último la captura 4 que es la fase final, cuando la memoria se libera, se ejectura erase y se elimina el puntero del vector y se elimina el objeto.
+
+Evidencia 6 
+
+<img width="951" height="362" alt="image" src="https://github.com/user-attachments/assets/9c0904f3-aa1d-474f-aa57-28443d4034c4" />
+
+<img width="830" height="537" alt="image" src="https://github.com/user-attachments/assets/1d9c0878-a7d1-43a3-8e56-e7409fe764f6" />
+
+Aca podemos ver como la partícula se elimina correctamente sin fugas de memoria en el programa, cada objeto creado con new muere con delete, lo podemos evidenciar con el tamaño de la partícula que disminuye al ejecutar erase.
+
+Evidencia 7 
+
+
+
+
+
 
 
 
