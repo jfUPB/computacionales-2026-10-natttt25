@@ -413,7 +413,7 @@ Ahi en ese punto el vector de las partículas ya tiene objetos guardados en la m
 
 Evidencia 2
 <img width="1019" height="330" alt="image" src="https://github.com/user-attachments/assets/8f149be1-e93e-442d-b5f4-10bb73089fb1" />
-<img width="1219" height="349" alt="image" src="https://github.com/user-attachments/assets/f05a9178-bf4f-4635-8ef4-a759c6d56b18" />
+<img width="1120" height="516" alt="image" src="https://github.com/user-attachments/assets/3eaee407-2aa9-4694-ab80-ff29ac5278d2" />
 
 
 
@@ -421,7 +421,12 @@ Usé el mismo breakpoint. Aca vemos StarExplosion y SpiralExplosion. Esta vez co
 
 Evidencia 3
 
-<img width="1255" height="527" alt="image" src="https://github.com/user-attachments/assets/9cd55c7e-d899-4dd2-8bfe-dbee2102f6d8" />
+<img width="1365" height="317" alt="image" src="https://github.com/user-attachments/assets/2dd90ae5-62e5-4c1e-ac49-93a1cd850b73" />
+
+Aqui tambien demostramos el polimorfismo, dentro de _vfptr encontramos el método update que corresponde al real del objeto, demostrando el polimorfismo en tiempo real de ejecución, ejecutando la función correcta según el objeto real independientemente si es del tipo Particle. (Objeto real es lo que realmente existe en la memoria y el objeto como tal es una referencia)
+
+Evidencia 4
+
 
 
 
