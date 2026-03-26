@@ -427,6 +427,9 @@ Aqui tambien demostramos el polimorfismo, dentro de _vfptr encontramos el métod
 
 Evidencia 4
 
+<img width="756" height="247" alt="image" src="https://github.com/user-attachments/assets/09cdb7c0-8b07-4fc0-b35a-2c21b504bfec" />
+
+Para el encapsulamiento, los campos que son privados no se ven en el depurador ni se heredan, los públicos/protegidos si. Al expandir el objeto This podemos ver lo atributos públicos y protegidos, son accesibles desde la subclase, los atributos privados de la clase base no aparecen como accesibles desde la subclase. Basicamente se puede inferir que atributos son públicos pero no lo dice explicitamente
 
 
 
