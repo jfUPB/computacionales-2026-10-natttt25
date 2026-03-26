@@ -408,8 +408,22 @@ ofApp::~ofApp() {
 ```
 Evidencia 1 
 <img width="947" height="682" alt="image" src="https://github.com/user-attachments/assets/cbd29441-28e5-464d-989b-3d5d5f12dde9" />
-Puse el breakpoint en la linea 14: particles[i]->update(dt);
+Puse el breakpoint en la linea 12: particles[i]->update(dt);
 Ahi en ese punto el vector de las partículas ya tiene objetos guardados en la memoria, cuando ejecutamos y tocamos la pantalla se pausa en el breakpoint y podemos ver en el depurador el vector de partículas con un objeto en la posición 0, el objeto es de RisingParticle, que hereda de Particle, la partícula. También podemos ver la jerarquía del objeto donde RisingParticle hereda de Particle, por eso podemos observar los datos de la clase base y la subclase. Además, podemos ver todas las variables que contiene como position, velocity, color, lifetime, age y exploded. Aqui podemos evidenciar la herencia, porque el vector guarda punteros de tipo Particle en el objeto que es RisingParticle, que es clase hija de la clase Particle.
+
+Evidencia 2
+<img width="1019" height="330" alt="image" src="https://github.com/user-attachments/assets/8f149be1-e93e-442d-b5f4-10bb73089fb1" />
+<img width="1219" height="349" alt="image" src="https://github.com/user-attachments/assets/f05a9178-bf4f-4635-8ef4-a759c6d56b18" />
+
+
+
+Usé el mismo breakpoint. Aca vemos StarExplosion y SpiralExplosion. Esta vez con más de un objeto o particulas, asi como antes, estan guardadas como punteros de tipo Particle. Cada objeto tiene un "_vptr" donde se observan las funciones virtuales tipo update, getColor, draw, entre otras funciones que se heredan de Particle. Algunas entradas son iguales como las de getPosition y getColor porque porvienen de la clase base Particle. Aqui podemos ver el polimorfismo a nivel de la  _vtable, aunque el vector guarda punteros del tipo Particle, cada objeto tiene su propia tabla virtual.
+
+Evidencia 3
+
+<img width="1255" height="527" alt="image" src="https://github.com/user-attachments/assets/9cd55c7e-d899-4dd2-8bfe-dbee2102f6d8" />
+
+
 
 
 
