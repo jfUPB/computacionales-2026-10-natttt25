@@ -3,6 +3,466 @@
 
 
 ## Bitácora de aplicación 
+ofApp.h:
+
+``` c++
+#pragma once
+#include "ofMain.h"
+#include <vector>
+
+
+class Particle {
+public:
+	virtual ~Particle() { }
+	virtual void update(float dt) = 0;
+	virtual void draw() = 0;
+	virtual bool isDead() const = 0;
+	virtual bool shouldExplode() const { return false; }
+	virtual glm::vec2 getPosition() const { return glm::vec2(0, 0); }
+	virtual ofColor getColor() const { return ofColor(255); }
+};
+
+
+class RisingParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float lifetime;
+	float age;
+	bool exploded;
+
+public:
+	RisingParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, lifetime(life)
+		, age(0)
+		, exploded(false) { }
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		velocity.y += 9.8f * dt * 8;
+		float explosionThreshold = ofGetHeight() * 0.15f + ofRandom(-30, 30);
+		if (position.y <= explosionThreshold || age >= lifetime) {
+			exploded = true;
+		}
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 10);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+class FastParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	bool exploded;
+
+public:
+	FastParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life)
+		: position(pos)
+		, velocity(vel * 2.0f)
+		, color(col)
+		, age(0)
+		, lifetime(life)
+		, exploded(false) { }
+
+	void update(float dt) override {
+		age += dt;
+		position += velocity * dt;
+
+		if (age >= lifetime)
+			exploded = true;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawRectangle(position.x, position.y, 8, 8);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+class BounceParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	bool exploded;
+
+public:
+	BounceParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(life)
+		, exploded(false) { }
+
+	void update(float dt) override {
+		age += dt;
+		position += velocity * dt;
+
+		if (position.y > ofGetHeight())
+			velocity.y *= -0.8;
+
+		if (age >= lifetime)
+			exploded = true;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 6);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+
+class ExplosionParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	float size;
+
+public:
+	ExplosionParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life, float sz)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(life)
+		, size(sz) { }
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		float alpha = ofMap(age, 0, lifetime, 255, 0, true);
+		color.a = alpha;
+	}
+
+	bool isDead() const override { return age >= lifetime; }
+};
+
+class ZigZagParticle : public Particle {
+protected:
+    glm::vec2 position;
+    glm::vec2 velocity;
+    ofColor color;
+    float age;
+    float lifetime;
+    bool exploded;
+
+public:
+    ZigZagParticle(const glm::vec2& pos, const glm::vec2& vel,
+                   const ofColor& col, float life)
+        : position(pos), velocity(vel), color(col),
+          age(0), lifetime(life), exploded(false) {}
+
+    void update(float dt) override {
+        age += dt;
+
+        position.x += sin(age * 10) * 100 * dt;
+        position += velocity * dt;
+
+        if (age >= lifetime) {
+            exploded = true;
+        }
+    }
+
+    void draw() override {
+        ofSetColor(color);
+        ofDrawCircle(position, 8);
+    }
+
+    bool isDead() const override { return exploded; }
+    bool shouldExplode() const override { return exploded; }
+    glm::vec2 getPosition() const override { return position; }
+    ofColor getColor() const override { return color; }
+};
+
+
+class CircularExplosion : public ExplosionParticle {
+public:
+	CircularExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.2f, ofRandom(16, 32)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(80, 200);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, size);
+	}
+};
+
+
+class RandomExplosion : public ExplosionParticle {
+public:
+	RandomExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.5f, ofRandom(16, 32)) {
+		velocity = glm::vec2(ofRandom(-200, 200), ofRandom(-200, 200));
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawRectangle(position.x, position.y, size, size);
+	}
+};
+
+
+class StarExplosion : public ExplosionParticle {
+public:
+	StarExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.3f, ofRandom(20, 40)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(90, 180);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		int rays = 5;
+		float outerRadius = size;
+		float innerRadius = size * 0.5f;
+		ofPushMatrix();
+		ofTranslate(position);
+		for (int i = 0; i < rays; i++) {
+			float theta = ofMap(i, 0, rays, 0, TWO_PI);
+			float xOuter = cos(theta) * outerRadius;
+			float yOuter = sin(theta) * outerRadius;
+			float xInner = cos(theta + PI / rays) * innerRadius;
+			float yInner = sin(theta + PI / rays) * innerRadius;
+			ofDrawLine(0, 0, xOuter, yOuter);
+			ofDrawLine(xOuter, yOuter, xInner, yInner);
+		}
+		ofPopMatrix();
+	}
+};
+
+class SpiralExplosion : public ExplosionParticle {
+public:
+	SpiralExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.4f, ofRandom(10, 20)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(50, 150);
+
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void update(float dt) override {
+		age += dt;
+
+		float angle = age * 10;
+		position.x += cos(angle) * 100 * dt;
+		position.y += sin(angle) * 100 * dt;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, size);
+	}
+};
+
+class ofApp : public ofBaseApp {
+public:
+	void setup();
+	void update();
+	void draw();
+	void mousePressed(int x, int y, int button);
+	void keyPressed(int key);
+
+	std::vector<Particle *> particles;
+	~ofApp();
+
+private:
+	void createRisingParticle();
+};
+
+```
+
+ofApp.cpp:
+
+``` c++
+#include "ofApp.h"
+
+
+void ofApp::setup() {
+	ofSetFrameRate(60);
+	ofBackground(0);
+}
+
+
+void ofApp::update() {
+	float dt = ofGetLastFrameTime();
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->update(dt);
+	}
+
+	for (int i = particles.size() - 1; i >= 0; i--) {
+		if (particles[i]->shouldExplode()) {
+			int explosionType = (int)ofRandom(4);
+			int numParticles = (int)ofRandom(20, 30);
+			for (int j = 0; j < numParticles; j++) {
+				if (explosionType == 0) {
+					particles.push_back(new CircularExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 1) {
+					particles.push_back(new RandomExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 2) {
+					particles.push_back(new StarExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else {
+					particles.push_back(new SpiralExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+
+				}
+			}
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		} else if (particles[i]->isDead()) {
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
+	}
+}
+
+void ofApp::draw() {
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->draw();
+	}
+}
+
+void ofApp::createRisingParticle() {
+	float minX = ofGetWidth() * 0.35f;
+	float maxX = ofGetWidth() * 0.65f;
+	float spawnX = ofRandom(minX, maxX);
+	glm::vec2 pos(spawnX, ofGetHeight());
+	glm::vec2 target(ofGetWidth() / 2.0f + ofRandom(-300, 300),
+		ofGetHeight() * 0.10f + ofRandom(-30, 30));
+	glm::vec2 direction = glm::normalize(target - pos);
+	glm::vec2 vel = direction * ofRandom(250, 350);
+	ofColor col;
+	col.setHsb(ofRandom(255), 220, 255);
+	float lifetime = ofRandom(1.5f, 3.5f);
+	particles.push_back(new RisingParticle(pos, vel, col, lifetime));
+}
+
+
+void ofApp::mousePressed(int x, int y, int button) {
+	createRisingParticle();
+}
+
+
+void ofApp::keyPressed(int key) {
+	if (key == ' ') {
+		for (int i = 0; i < 1000; i++) {
+			createRisingParticle();
+		}
+	}
+	if (key == 's') {
+		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
+	}
+}
+
+
+ofApp::~ofApp() {
+	for (int i = 0; i < particles.size(); i++) {
+		delete particles[i];
+	}
+	particles.clear();
+}
+
+```
+Evidencia 1 
+<img width="947" height="682" alt="image" src="https://github.com/user-attachments/assets/cbd29441-28e5-464d-989b-3d5d5f12dde9" />
+Puse el breakpoint en la linea 12: particles[i]->update(dt);
+Ahi en ese punto el vector de las partículas ya tiene objetos guardados en la memoria, cuando ejecutamos y tocamos la pantalla se pausa en el breakpoint y podemos ver en el depurador el vector de partículas con un objeto en la posición 0, el objeto es de RisingParticle, que hereda de Particle, la partícula. También podemos ver la jerarquía del objeto donde RisingParticle hereda de Particle, por eso podemos observar los datos de la clase base y la subclase. Además, podemos ver todas las variables que contiene como position, velocity, color, lifetime, age y exploded. Aqui podemos evidenciar la herencia, porque el vector guarda punteros de tipo Particle en el objeto que es RisingParticle, que es clase hija de la clase Particle.
+
+Evidencia 2
+<img width="1019" height="330" alt="image" src="https://github.com/user-attachments/assets/8f149be1-e93e-442d-b5f4-10bb73089fb1" />
+<img width="1120" height="516" alt="image" src="https://github.com/user-attachments/assets/3eaee407-2aa9-4694-ab80-ff29ac5278d2" />
+
+
+
+Usé el mismo breakpoint. Aca vemos StarExplosion y SpiralExplosion. Esta vez con más de un objeto o particulas, asi como antes, estan guardadas como punteros de tipo Particle. Cada objeto tiene un "_vptr" donde se observan las funciones virtuales tipo update, getColor, draw, entre otras funciones que se heredan de Particle. Algunas entradas son iguales como las de getPosition y getColor porque porvienen de la clase base Particle. Aqui podemos ver el polimorfismo a nivel de la  _vtable, aunque el vector guarda punteros del tipo Particle, cada objeto tiene su propia tabla virtual.
+
+Evidencia 3
+
+<img width="1365" height="317" alt="image" src="https://github.com/user-attachments/assets/2dd90ae5-62e5-4c1e-ac49-93a1cd850b73" />
+
+Aqui tambien demostramos el polimorfismo, dentro de _vfptr encontramos el método update que corresponde al real del objeto, demostrando el polimorfismo en tiempo real de ejecución, ejecutando la función correcta según el objeto real independientemente si es del tipo Particle. (Objeto real es lo que realmente existe en la memoria y el objeto como tal es una referencia)
+
+Evidencia 4
+
+<img width="756" height="247" alt="image" src="https://github.com/user-attachments/assets/09cdb7c0-8b07-4fc0-b35a-2c21b504bfec" />
+
+Para el encapsulamiento, los campos que son privados no se ven en el depurador ni se heredan, los públicos/protegidos si. Al expandir el objeto This podemos ver lo atributos públicos y protegidos, son accesibles desde la subclase, los atributos privados de la clase base no aparecen como accesibles desde la subclase. Basicamente se puede inferir en el depurador que atributos son públicos pero no lo dice explicitamente, ya eso lo podemos ver en el código como tal.
+
+Evidencia 5
+
+<img width="943" height="499" alt="Captura de pantalla 2026-03-25 232906" src="https://github.com/user-attachments/assets/9f738b59-c5d4-499a-91f2-ae3744051c11" />
+
+<img width="863" height="306" alt="image" src="https://github.com/user-attachments/assets/e985c09c-ad83-4c2c-b986-f00a53551d76" />
+
+<img width="1068" height="655" alt="image" src="https://github.com/user-attachments/assets/e6bc2ab6-60c9-4ea6-8a5a-092369ae7dd5" />
+
+<img width="1466" height="407" alt="image" src="https://github.com/user-attachments/assets/35189b9c-d162-46b2-9449-cb8487d17cdc" />
+
+En la captura 1 vemos el estad inicial antes de crear una partícula, podemos observar que su tamaño es 0, no existen objetos en la memoria, pero luego en la captura 2 se ve que el tamaño del vector cambia a 1, el objeto ya ha sido creado (la partícula) y almacenado correctamente. En la 3ra captura vemos el comportamiento de la partícula, vemos los atributos mencionados anteriormente, cambiando con el tiempo, ahi evidenciamos que la partícula está activa dentro del sistema. Por último la captura 4 que es la fase final, cuando la memoria se libera, se ejectura erase y se elimina el puntero del vector y se elimina el objeto.
+
+Evidencia 6 
+
+<img width="951" height="362" alt="image" src="https://github.com/user-attachments/assets/9c0904f3-aa1d-474f-aa57-28443d4034c4" />
+
+<img width="830" height="537" alt="image" src="https://github.com/user-attachments/assets/1d9c0878-a7d1-43a3-8e56-e7409fe764f6" />
+
+Aca podemos ver como la partícula se elimina correctamente sin fugas de memoria en el programa, cada objeto creado con new muere con delete, lo podemos evidenciar con el tamaño de la partícula que disminuye al ejecutar erase.
+
+Evidencia 7 
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Bitácora de reflexión
