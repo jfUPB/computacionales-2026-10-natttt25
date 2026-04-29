@@ -70,7 +70,8 @@ En teoría, si no cambian, no sería necesario configurarlos en cada iteración.
 Esta función intercambia el buffer que se está mostrando con el que se acaba de renderizar. Esto es importante porque permite mostrar la imagen completa de forma fluida. Si no se llama, la imagen no se actualiza correctamente y puede que no se vea nada o que aparezcan errores visuales, ya que el buffer visible nunca cambia.
 
 ### ACTIVIDAD 4
-<img width="1059" height="673" alt="image" src="https://github.com/user-attachments/assets/37e8943d-6b6e-4138-aae5-7df7aaf45410" />
+<img width="672" height="644" alt="image" src="https://github.com/user-attachments/assets/eec57c1c-bda5-43c9-acf0-6427da686197" />
+
 En esta actividad se modificó el programa del triángulo para hacerlo interactivo usando la posición del mouse. Se implementó un callback que captura la posición del cursor y actualiza el triángulo en tiempo real.
 
 El cambio principal fue en el vertex shader, donde se agregó una variable uniforme llamada offset, que permite mover el triángulo según la posición del mouse. Este valor se actualiza constantemente en el ciclo de renderizado.
@@ -218,8 +219,8 @@ Triangle.cpp
 	}
 
 
-<img width="752" height="441" alt="image" src="https://github.com/user-attachments/assets/e6629b7f-0afe-4012-8d20-1befdb791ccb" />
-<img width="751" height="507" alt="image" src="https://github.com/user-attachments/assets/dd886155-2066-46a0-9ae2-7638ff267711" />
+<img width="625" height="500" alt="image" src="https://github.com/user-attachments/assets/10a952bb-ab6d-473f-97c2-2a7f310d4e54" />
+<img width="592" height="567" alt="image" src="https://github.com/user-attachments/assets/da75ba31-afd5-46f4-a6be-5be983d164de" />
 
 
 
@@ -351,7 +352,7 @@ Triangle.cpp
 #### FASE 2
 
 ##### EVIDENCIA 1
-<img width="710" height="535" alt="image" src="https://github.com/user-attachments/assets/fd15d9b1-677c-4b7d-ac6e-b88fd16bafba" />
+<img width="500" height="538" alt="image" src="https://github.com/user-attachments/assets/2e2f860a-f630-41a0-a6a1-8765f8efb250" />
 
 Explicación:
 GLFW se usa primero porque crea la ventana y el contexto OpenGL. Sin ese contexto, OpenGL no puede funcionar. GLAD depende de ese contexto para cargar las funciones modernas de OpenGL desde los drivers.
